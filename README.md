@@ -15,7 +15,7 @@ Use one of:
 module.exports = {
   plugins: [
     {
-      use: '@gridsome/source-cockpit',
+      use: '@tanc00/gridsome-source-cockpit',
       options: {
         accessToken: process.env.ACCESSTOKEN,
         host: process.env.APIHOST
@@ -48,7 +48,7 @@ You will also need to add a config option in your `gridsome.config.js` file:
 module.exports = {
   plugins: [
     {
-      use: '@tanc00/source-cockpit',
+      use: '@tanc00/gridsome-source-cockpit',
       options: {
         options: {
           accessToken: process.env.ACCESSTOKEN,
