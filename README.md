@@ -6,8 +6,8 @@
 
 Use one of:
 
-- `yarn add @tanc/gridsome-source-cockpit`
-- `npm install @tanc/gridsome-source-cockpit`
+- `yarn add @tanc00/gridsome-source-cockpit`
+- `npm install @tanc00/gridsome-source-cockpit`
 
 ## Usage
 
@@ -48,7 +48,7 @@ You will also need to add a config option in your `gridsome.config.js` file:
 module.exports = {
   plugins: [
     {
-      use: '@gridsome/source-cockpit',
+      use: '@tanc00/source-cockpit',
       options: {
         options: {
           accessToken: process.env.ACCESSTOKEN,
@@ -69,7 +69,7 @@ You can configure a route per collection type by defining them in `gridsome.conf
 module.exports = {
   plugins: [
     {
-      use: '@tanc/gridsome-source-cockpit',
+      use: '@tanc00/gridsome-source-cockpit',
       options: {
         accessToken: process.env.ACCESSTOKEN,
         host: process.env.APIHOST
@@ -92,7 +92,7 @@ Fields in Cockpit can be localized into different languages. This plugin is able
 module.exports = {
   plugins: [
     {
-      use: '@tanc/gridsome-source-cockpit',
+      use: '@tanc00/gridsome-source-cockpit',
       options: {
         accessToken: process.env.ACCESSTOKEN,
         host: process.env.APIHOST
