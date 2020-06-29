@@ -1,9 +1,12 @@
 {
   "version": "0.0.1",
-  "name": "gridsome-source-cockpit",
+  "name": "@tanc/gridsome-source-cockpit",
   "description": "Cockpit CMS source plugin for Gridsome",
   "homepage": "https://github.com/tanc/gridsome-cockpit-source#readme",
-  "repository": "https://github.com/tanc/gridsome-cockpit-source",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanc/gridsome-cockpit-source.git"
+  },
   "main": "index.js",
   "keywords": [
     "gridsome",
@@ -24,5 +27,13 @@
   },
   "engines": {
     "node": ">=8"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/tanc/gridsome-cockpit-source/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tanc",
+  "license": "MIT"
 }

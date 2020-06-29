@@ -1,11 +1,13 @@
-# @gridsome/source-cockpit
+# Cockpit CMS source plugin for Gridsome
 
-> Cockpit source for Gridsome. This package is under development and
-API might change before v1 is released.
+> This package is under development and API may change before v1 is released.
 
 ## Install
-- `yarn add @gridsome/source-cockpit`
-- `npm install @gridsome/source-cockpit`
+
+Use one of:
+
+- `yarn add @tanc/gridsome-source-cockpit`
+- `npm install @tanc/gridsome-source-cockpit`
 
 ## Usage
 
@@ -67,7 +69,7 @@ You can configure a route per collection type by defining them in `gridsome.conf
 module.exports = {
   plugins: [
     {
-      use: '@gridsome/source-cockpit',
+      use: '@tanc/gridsome-source-cockpit',
       options: {
         accessToken: process.env.ACCESSTOKEN,
         host: process.env.APIHOST
@@ -90,7 +92,7 @@ Fields in Cockpit can be localized into different languages. This plugin is able
 module.exports = {
   plugins: [
     {
-      use: '@gridsome/source-cockpit',
+      use: '@tanc/gridsome-source-cockpit',
       options: {
         accessToken: process.env.ACCESSTOKEN,
         host: process.env.APIHOST
@@ -105,6 +107,8 @@ module.exports = {
 ```
 
 In the example above, this plugin will add fields (if they exist and are localized) to GraphQL. Each localized field will have the two letter code appended, for example, if you have a field called `intro` which is localized and you have `it` and `de` as your languages you will see three fields added to GraphQL called `intro`, `introIt` and `introDe`
+
+At the time of writing there is currently no officially supported method of handling i18n (internationalisation) content within Gridsome so it will be up to you to decide how you want to display and handle your translated fields.
 
 ## Cockpit API configuration
 
@@ -130,7 +134,7 @@ If you get an access denied message you'll need to check your configuration.
 
 ## Cockpit Collection fields
 
-@gridsome/souce-cockpit currently works with all collection fields with some caveats:
+@tanc/gridsome-souce-cockpit currently works with all collection fields with some caveats:
 
 - Repeater fields are added to Gridsome as JSON fields. This provides the full tree of information under a repeater field. Without it being a JSON field only repeater fields composed of a single field type would be pulled into GraphQL properly.
 - Only repeater fields at the top level are added as JSON fields. If there is a nested repeater field inside a `set` field this may be added properly but only if the repeater is composed of instances of a single field type.
