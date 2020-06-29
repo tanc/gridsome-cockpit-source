@@ -50,11 +50,9 @@ module.exports = {
     {
       use: '@tanc00/gridsome-source-cockpit',
       options: {
-        options: {
-          accessToken: process.env.ACCESSTOKEN,
-          host: process.env.APIHOST
-          apiLimit: process.env.APILIMIT
-        }
+        accessToken: process.env.ACCESSTOKEN,
+        host: process.env.APIHOST
+        apiLimit: process.env.APILIMIT
       }
     }
   ]
