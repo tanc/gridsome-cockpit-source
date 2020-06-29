@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "name": "@tanc00/gridsome-source-cockpit",
   "description": "Cockpit CMS source plugin for Gridsome",
   "homepage": "https://github.com/tanc/gridsome-cockpit-source#readme",
