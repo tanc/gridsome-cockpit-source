@@ -4,7 +4,7 @@ const camelCase = require('camelcase')
 const deepmerge = require('deepmerge')
 
 class CockpitSource {
-  static defaultOptions () {
+  static defaultOptions() {
     return {
       accessToken: undefined,
       typeName: 'Cockpit',
@@ -14,9 +14,8 @@ class CockpitSource {
     }
   }
 
-  constructor (api, options) {
+  constructor(api, options) {
     this.options = options
-    this.store = api.store
     this.typesIndex = {}
 
     this.client = new CockpitSDK({
@@ -25,32 +24,30 @@ class CockpitSource {
     })
 
     api.loadSource(async store => {
-      await this.getContentTypes(store)
+      await this.getCollections(store)
       await this.getAssets(store)
       await this.getEntries(store)
     })
   }
 
-  async getContentTypes (store) {
+  async getCollections(store) {
     const collectionTypes = await this.fetch('collectionList')
 
     for (const collectionType of collectionTypes) {
-      const name = collectionType
-      const typeName = store.makeTypeName(collectionType)
-      const route = this.options.routes[name] || `/${store.slugify(name)}/:slug`
+      const typeName = collectionType
 
-      store.addContentType({ typeName, route })
+      store.addCollection(typeName)
 
       this.typesIndex[typeName] = { collectionType, typeName }
     }
   }
 
-  async getAssets (store) {
+  async getAssets(store) {
     const assets = await this.fetch('assets')
-    const typeName = store.makeTypeName('asset')
-    const route = this.options.routes.asset || '/asset/:id'
+    const typeName = 'asset'
+    //const route = this.options.routes.asset || '/asset/:id'
 
-    const contentType = store.addContentType({ typeName, route })
+    const contentType = store.addCollection(typeName)
 
     for (const asset of assets.assets) {
       const { _id: id, title, created, ...fields } = asset
@@ -59,18 +56,18 @@ class CockpitSource {
       // Path is reserved for use by Gridsome.
       fields.assetPath = fields.path
 
-      contentType.addNode({ id, date, title, fields })
+      contentType.addNode({ id, date, title, ...fields })
     }
   }
 
-  async getEntries (store) {
+  async getEntries(store) {
     for (const key in this.typesIndex) {
       const collectionType = this.typesIndex[key].collectionType
       const data = await this.fetch('collectionGet', collectionType)
-      const typeName = store.makeTypeName(collectionType)
+      const typeName = collectionType
 
       data.entries.forEach(entry => {
-        const collection = store.getContentType(typeName)
+        const collection = store.getCollection(typeName)
         const fieldsSpec = {}
 
         // Prepare the fields specifications and clone any fields
@@ -107,7 +104,7 @@ class CockpitSource {
             case 'collectionlink':
               Object.keys(fields[fieldDefinition.name]).forEach(async r => {
                 const instance = fields[fieldDefinition.name][r]
-                const typeName = this.store.makeTypeName(instance.link)
+                const typeName = instance.link
                 fields[fieldDefinition.name][r] = this.store.createReference(typeName, instance._id)
               })
               break
@@ -119,13 +116,13 @@ class CockpitSource {
           title: entry.title || '',
           slug: entry.slug || '',
           date: new Date(entry._created * 1000),
-          fields
+          ...fields
         })
       })
     }
   }
 
-  async fetch (method, type = '', limit = this.options.apiLimit, sort = { _created: -1 }) {
+  async fetch(method, type = '', limit = this.options.apiLimit, sort = { _created: -1 }) {
     const fetch = skip => this.client[method](type, { skip, limit, sort })
     let result = await fetch(0)
     const pages = Math.ceil(result.total / limit)
@@ -139,4 +136,3 @@ class CockpitSource {
 }
 
 module.exports = CockpitSource
-
